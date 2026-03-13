@@ -1,0 +1,137 @@
+/* DataQuery数据查询页面样式 */
+
+.queryLayout {
+  background: var(--color-bg-primary);
+  min-height: 100vh;
+}
+
+.content {
+  background: var(--color-bg-primary);
+  padding: 32px !important;
+  overflow-y: auto;
+}
+
+.pageContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.queryCard {
+  :global(.ant-card) {
+    background: linear-gradient(135deg, var(--color-bg-secondary), rgba(0, 217, 255, 0.05));
+    border: 1px solid rgba(0, 217, 255, 0.2) !important;
+    border-radius: 12px;
+  }
+}
+
+.queryInputGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.queryInput {
+  :global(.ant-input-textarea textarea) {
+    background: rgba(100, 116, 139, 0.1) !important;
+    border: 1px solid rgba(0, 217, 255, 0.2) !important;
+    color: var(--color-text-primary) !important;
+    font-size: 14px;
+
+    &:focus {
+      border-color: rgba(0, 217, 255, 0.5) !important;
+      box-shadow: 0 0 8px rgba(0, 217, 255, 0.1) !important;
+    }
+
+    &::placeholder {
+      color: var(--color-text-tertiary);
+    }
+  }
+}
+
+.queryActions {
+  display: flex;
+  gap: 8px;
+
+  :global(.ant-btn-primary) {
+    background: linear-gradient(135deg, #00d9ff, #7f5af0) !important;
+    border: none !important;
+    font-weight: 600;
+
+    &:hover:not(:disabled) {
+      opacity: 0.9;
+    }
+  }
+}
+
+.sqlCard {
+  :global(.ant-card) {
+    background: var(--color-bg-secondary) !important;
+    border: 1px solid rgba(0, 217, 255, 0.1) !important;
+  }
+}
+
+.sqlPreview {
+  position: relative;
+  background: rgba(100, 116, 139, 0.1);
+  border: 1px solid rgba(0, 217, 255, 0.1);
+  border-radius: 6px;
+  padding: 16px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  color: #00d9ff;
+  overflow-x: auto;
+  line-height: 1.8;
+
+  code {
+    color: #00d9ff;
+  }
+}
+
+.copyBtn {
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  color: var(--color-text-tertiary) !important;
+
+  &:hover {
+    color: var(--color-accent-cyan) !important;
+  }
+}
+
+.chartCard {
+  :global(.ant-card) {
+    background: var(--color-bg-secondary) !important;
+    border: 1px solid rgba(0, 217, 255, 0.1) !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 16px !important;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+}

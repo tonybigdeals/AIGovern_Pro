@@ -1,0 +1,150 @@
+/* SmartOps智能操作页面样式 */
+
+.opsLayout {
+  background: var(--color-bg-primary);
+  min-height: 100vh;
+}
+
+.content {
+  background: var(--color-bg-primary);
+  padding: 32px !important;
+  overflow-y: auto;
+}
+
+.pageContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.templateSection {
+  margin-bottom: 32px;
+}
+
+.sectionTitle {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 16px;
+}
+
+.templateGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+
+.templateCard {
+  :global(.ant-card) {
+    background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-bg-tertiary));
+    border: 1px solid rgba(0, 217, 255, 0.1) !important;
+    border-radius: 12px;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+    &:hover {
+      border-color: rgba(0, 217, 255, 0.3);
+      transform: translateY(-4px);
+    }
+  }
+}
+
+.templateIcon {
+  font-size: 40px;
+  margin-bottom: 12px;
+}
+
+.templateName {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 12px 0 8px;
+}
+
+.templateDesc {
+  font-size: 12px;
+  color: var(--color-text-secondary);
+  margin: 0 0 16px;
+  line-height: 1.5;
+}
+
+.logCard {
+  :global(.ant-card) {
+    background: var(--color-bg-secondary) !important;
+    border: 1px solid rgba(0, 217, 255, 0.1) !important;
+    border-radius: 12px;
+  }
+
+  :global(.ant-timeline) {
+    padding: 0;
+  }
+}
+
+.logItem {
+  padding: 12px;
+  background: rgba(100, 116, 139, 0.05);
+  border-radius: 6px;
+  border-left: 3px solid rgba(0, 217, 255, 0.2);
+  margin-bottom: 12px;
+}
+
+.logHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.logType {
+  font-weight: 600;
+  color: var(--color-text-primary);
+  font-size: 14px;
+}
+
+.logDesc {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0 0 4px 0;
+}
+
+.logTime {
+  font-size: 11px;
+  color: var(--color-text-tertiary);
+  margin: 0 0 8px 0;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 16px !important;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .templateGrid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,157 @@
+/* Diagnosis经营诊断页面样式 */
+
+.diagnosisLayout {
+  background: var(--color-bg-primary);
+  min-height: 100vh;
+}
+
+.content {
+  background: var(--color-bg-primary);
+  padding: 32px !important;
+  overflow-y: auto;
+}
+
+.pageContainer {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.pageHeader {
+  margin-bottom: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.pageTitle {
+  font-size: 28px;
+  font-weight: 700;
+  margin: 0;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5px;
+}
+
+.pageSubtitle {
+  font-size: 14px;
+  color: var(--color-text-tertiary);
+  font-weight: 500;
+}
+
+.reportCard {
+  :global(.ant-card) {
+    background: linear-gradient(135deg, var(--color-bg-secondary), var(--color-bg-tertiary));
+    border: 1px solid rgba(0, 217, 255, 0.1) !important;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+
+    &:hover {
+      border-color: rgba(0, 217, 255, 0.2);
+      box-shadow: 0 8px 32px rgba(0, 217, 255, 0.05);
+    }
+  }
+
+  :global(.ant-card-head) {
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1) !important;
+  }
+
+  :global(.ant-statistic) {
+    text-align: left;
+
+    :global(.ant-statistic-title) {
+      color: var(--color-text-tertiary) !important;
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    :global(.ant-statistic-content) {
+      color: var(--color-text-primary) !important;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 700;
+      font-size: 20px;
+
+      :global(.ant-statistic-content-value) {
+        color: var(--color-text-primary);
+      }
+    }
+  }
+}
+
+.analysis {
+  background: rgba(0, 217, 255, 0.05);
+  border: 1px solid rgba(0, 217, 255, 0.1);
+  border-radius: 6px;
+  padding: 16px;
+  margin: 16px 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 16px;
+}
+
+.analysisItem {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.analysisTitle {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.analysisText {
+  font-size: 13px;
+  color: var(--color-text-secondary);
+  margin: 0;
+  line-height: 1.6;
+}
+
+.aiCard {
+  :global(.ant-card) {
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(127, 90, 240, 0.1));
+    border: 1px solid rgba(0, 217, 255, 0.2) !important;
+    border-radius: 12px;
+  }
+
+  :global(.ant-card-head) {
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1) !important;
+  }
+
+  :global(.ant-alert) {
+    background: transparent;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    margin-bottom: 16px;
+  }
+
+  ol {
+    margin: 0;
+    padding-left: 24px;
+
+    li {
+      color: var(--color-text-secondary);
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 8px;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .content {
+    padding: 16px !important;
+  }
+
+  .pageTitle {
+    font-size: 24px;
+  }
+
+  .analysis {
+    grid-template-columns: 1fr;
+  }
+}
