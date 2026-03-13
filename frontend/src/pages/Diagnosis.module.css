@@ -51,7 +51,7 @@
   }
 
   :global(.ant-card-head) {
-    border-bottom: 1px solid rgba(0, 217, 255, 0.1) !important;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.06) !important;
   }
 
   :global(.ant-statistic) {
@@ -120,7 +120,7 @@
   }
 
   :global(.ant-card-head) {
-    border-bottom: 1px solid rgba(0, 217, 255, 0.1) !important;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.06) !important;
   }
 
   :global(.ant-alert) {

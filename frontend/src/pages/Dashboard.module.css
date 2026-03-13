@@ -74,7 +74,7 @@
   gap: 12px;
   height: 64px;
   padding: 0 20px;
-  border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+  border-bottom: 1px solid rgba(100, 116, 139, 0.08);
   font-weight: 700;
   font-size: 18px;
   letter-spacing: -0.5px;
@@ -155,7 +155,7 @@
 /* ===== 顶部导航 ===== */
 .header {
   background: var(--color-bg-secondary) !important;
-  border-bottom: 1px solid rgba(100, 116, 139, 0.1);
+  border-bottom: 1px solid rgba(100, 116, 139, 0.08);
   padding: 0 24px !important;
   height: 64px !important;
   display: flex;
@@ -366,7 +366,7 @@
   }
 
   :global(.ant-card-head) {
-    border-bottom: 1px solid rgba(0, 217, 255, 0.1) !important;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.06) !important;
     padding: 16px 24px !important;
   }
 
