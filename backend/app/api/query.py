@@ -2,7 +2,9 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models.schemas import QueryRequest, QueryResponse
+from app.services.sql_service import sql_service
 from typing import Any
+import time
 
 router = APIRouter(prefix="/api/query", tags=["query"])
 
@@ -14,17 +16,24 @@ async def execute_query(
 ):
     """执行数据查询 - 自然语言 → SQL 生成 → 查询执行"""
 
-    sql = "SELECT * FROM orders LIMIT 10"
+    start_time = time.time()
+
+    # 生成 SQL
+    sql, chart_type = await sql_service.generate_sql(request.natural_language_query)
+
+    # 执行查询（占位符实现）
     result = []
-    chart_type = "table"
+
+    execution_time = time.time() - start_time
 
     return QueryResponse(
         sql=sql,
         result=result,
         chart_type=chart_type,
         rows_count=len(result),
-        execution_time=0.1,
+        execution_time=execution_time,
     )
+
 
 
 @router.get("/history")

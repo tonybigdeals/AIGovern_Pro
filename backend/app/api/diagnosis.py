@@ -2,6 +2,7 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 from app.core.database import get_db
 from app.models.schemas import DiagnosisMetrics, DiagnosisAnalysis
+from app.services.diagnosis_service import diagnosis_service
 from datetime import datetime
 
 router = APIRouter(prefix="/api/diagnosis", tags=["diagnosis"])
@@ -10,11 +11,19 @@ router = APIRouter(prefix="/api/diagnosis", tags=["diagnosis"])
 @router.get("/summary")
 async def get_diagnosis_summary(db: Session = Depends(get_db)):
     """获取诊断总结"""
+    metrics = {
+        "order_count": 1250,
+        "gmv": 125000,
+        "conversion_rate": 3.5,
+        "active_users": 5000,
+    }
+    analysis = await diagnosis_service.analyze_metrics(metrics)
+
     return {
-        "total_issues": 3,
-        "high_priority": 1,
-        "medium_priority": 2,
-        "low_priority": 0,
+        "total_issues": analysis["total_issues"],
+        "high_priority": sum(1 for i in analysis["issues"] if i.get("severity") == "high"),
+        "medium_priority": sum(1 for i in analysis["issues"] if i.get("severity") == "medium"),
+        "low_priority": sum(1 for i in analysis["issues"] if i.get("severity") == "low"),
         "generated_at": datetime.now(),
     }
 
@@ -58,3 +67,4 @@ async def analyze_metric(
         "recommendation": "建议采取以下措施",
         "priority": "high",
     }
+
