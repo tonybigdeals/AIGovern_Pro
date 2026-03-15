@@ -12,7 +12,7 @@ class Settings:
     port: int = int(os.getenv("PORT", 8000))
 
     # 数据库
-    database_url: str = os.getenv("DATABASE_URL", "postgresql://user:password@localhost:5432/aigovern_db")
+    database_url: str = os.getenv("DATABASE_URL", "sqlite:///./aigovern.db")
     db_echo: bool = os.getenv("DB_ECHO", "false").lower() == "true"
 
     # Redis

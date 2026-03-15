@@ -1,5 +1,7 @@
 from typing import Optional, Any
 from app.core.llm import llm_client
+from sqlalchemy import text
+from sqlalchemy.orm import Session
 
 
 class SQLService:
@@ -12,6 +14,12 @@ class SQLService:
         """从自然语言生成 SQL"""
 
         schema = schema_context or self._get_default_schema()
+
+        # 如果没有 LLM API Key，直接使用示例 SQL
+        if not self.llm.api_key:
+            chart_type = self._infer_chart_type(natural_query)
+            example_sql = self._get_example_sql(natural_query)
+            return example_sql, chart_type
 
         prompt = f"""你是一个 SQL 专家。根据以下数据库 schema 和自然语言查询，生成准确的 SQL 语句。
 
@@ -31,14 +39,33 @@ SELECT ... FROM ... WHERE ...
 """
 
         sql = await self.llm.generate_text(prompt, max_tokens=512)
-        return sql.strip(), self._infer_chart_type(natural_query)
+        chart_type = self._infer_chart_type(natural_query)
 
-    async def execute_query(self, sql: str, db_connection: Any) -> list[dict]:
+        # 简单的安全检查 - 只允许 SELECT 查询
+        sql_upper = sql.strip().upper()
+        if not sql_upper.startswith("SELECT"):
+            # 回退到示例SQL
+            sql = self._get_example_sql(natural_query)
+
+        return sql.strip(), chart_type
+
+    async def execute_query(self, sql: str, db: Session) -> list[dict]:
         """执行 SQL 查询"""
         try:
-            result = []
-            # 占位符实现 - 实际应执行 SQL
-            return result
+            # 安全性检查：只允许 SELECT
+            sql_upper = sql.strip().upper()
+            if not sql_upper.startswith("SELECT"):
+                raise ValueError("只允许执行 SELECT 查询")
+
+            # 执行查询
+            result = db.execute(text(sql))
+            rows = result.fetchall()
+
+            # 转换为字典列表
+            if rows:
+                columns = result.keys()
+                return [dict(zip(columns, row)) for row in rows]
+            return []
         except Exception as e:
             raise RuntimeError(f"SQL 执行失败: {e}")
 
@@ -56,6 +83,23 @@ SELECT ... FROM ... WHERE ...
             return "scatter"
         else:
             return "table"
+
+    def _get_example_sql(self, query: str) -> str:
+        """根据查询获取示例 SQL"""
+        query_lower = query.lower()
+
+        if "订单" in query_lower and ("总数" in query_lower or "数量" in query_lower):
+            return "SELECT COUNT(*) as total_orders, DATE(created_at) as date FROM orders GROUP BY DATE(created_at) ORDER BY date DESC LIMIT 10"
+        elif "gmv" in query_lower or "金额" in query_lower:
+            return "SELECT SUM(amount) as total_gmv, DATE(created_at) as date FROM orders GROUP BY DATE(created_at) ORDER BY date DESC LIMIT 10"
+        elif "转化率" in query_lower or "conversion" in query_lower:
+            return "SELECT COUNT(DISTINCT user_id) as unique_users, COUNT(*) as total_orders FROM orders"
+        elif "用户" in query_lower:
+            return "SELECT id, name, email, role, created_at FROM users LIMIT 20"
+        elif "商品" in query_lower:
+            return "SELECT id, name, sku, price, stock, category FROM products LIMIT 20"
+        else:
+            return "SELECT id, amount, status, created_at FROM orders LIMIT 20"
 
     def _get_default_schema(self) -> str:
         """获取默认数据库 schema"""

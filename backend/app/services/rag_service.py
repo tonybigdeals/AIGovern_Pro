@@ -1,5 +1,8 @@
 from typing import Optional
-from pymilvus import Collection
+try:
+    from pymilvus import Collection
+except ImportError:
+    Collection = None
 from app.core.llm import llm_client
 from app.models.schemas import ChatResponse, SourceReference
 from datetime import datetime
@@ -8,7 +11,7 @@ from datetime import datetime
 class RAGService:
     """RAG 检索增强生成服务"""
 
-    def __init__(self, milvus_collection: Optional[Collection] = None):
+    def __init__(self, milvus_collection: Optional[object] = None):
         self.collection = milvus_collection
         self.llm = llm_client
 

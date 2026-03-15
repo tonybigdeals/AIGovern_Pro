@@ -21,8 +21,12 @@ async def execute_query(
     # 生成 SQL
     sql, chart_type = await sql_service.generate_sql(request.natural_language_query)
 
-    # 执行查询（占位符实现）
-    result = []
+    # 执行查询
+    try:
+        result = await sql_service.execute_query(sql, db)
+    except Exception as e:
+        result = []
+        sql = f"-- 查询失败: {str(e)}\n{sql}"
 
     execution_time = time.time() - start_time
 
